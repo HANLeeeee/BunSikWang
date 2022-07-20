@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F665F4F7288809620058BFDD /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F665F4F6288809620058BFDD /* Customer.swift */; };
 		F68E51A928870E3C00F84F11 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68E51A828870E3C00F84F11 /* AppDelegate.swift */; };
 		F68E51AB28870E3C00F84F11 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68E51AA28870E3C00F84F11 /* SceneDelegate.swift */; };
 		F68E51AD28870E3C00F84F11 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68E51AC28870E3C00F84F11 /* ViewController.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F665F4F6288809620058BFDD /* Customer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
 		F68E51A528870E3C00F84F11 /* Game_BunSikWang.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Game_BunSikWang.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F68E51A828870E3C00F84F11 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F68E51AA28870E3C00F84F11 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -56,13 +58,14 @@
 		F68E51A728870E3C00F84F11 /* Game_BunSikWang */ = {
 			isa = PBXGroup;
 			children = (
+				F68E51B328870E3F00F84F11 /* LaunchScreen.storyboard */,
 				F68E51A828870E3C00F84F11 /* AppDelegate.swift */,
 				F68E51AA28870E3C00F84F11 /* SceneDelegate.swift */,
-				F68E51AC28870E3C00F84F11 /* ViewController.swift */,
-				F68E51AE28870E3C00F84F11 /* Main.storyboard */,
 				F68E51B128870E3F00F84F11 /* Assets.xcassets */,
-				F68E51B328870E3F00F84F11 /* LaunchScreen.storyboard */,
 				F68E51B628870E3F00F84F11 /* Info.plist */,
+				F68E51AE28870E3C00F84F11 /* Main.storyboard */,
+				F68E51AC28870E3C00F84F11 /* ViewController.swift */,
+				F665F4F6288809620058BFDD /* Customer.swift */,
 			);
 			path = Game_BunSikWang;
 			sourceTree = "<group>";
@@ -141,6 +144,7 @@
 				F68E51AD28870E3C00F84F11 /* ViewController.swift in Sources */,
 				F68E51A928870E3C00F84F11 /* AppDelegate.swift in Sources */,
 				F68E51AB28870E3C00F84F11 /* SceneDelegate.swift in Sources */,
+				F665F4F7288809620058BFDD /* Customer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,6 +297,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -321,6 +326,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
