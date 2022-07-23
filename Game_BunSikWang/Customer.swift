@@ -20,3 +20,4 @@ struct Customer {
 }
 
 var customerData: [Customer] = []
+

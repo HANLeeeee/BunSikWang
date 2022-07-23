@@ -6,8 +6,11 @@
 //
 
 import UIKit
+import AVFoundation
 
 class ViewController: UIViewController {
+    
+    var bgmPlayer: AVAudioPlayer!
     
     @IBOutlet weak var labelMainTimer: UILabel!
 
@@ -36,8 +39,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var table5Menu: UIImageView!
     @IBOutlet weak var table6Menu: UIImageView!
     
-
-    
     @IBOutlet weak var progressView1: UIProgressView!
     @IBOutlet weak var progressView2: UIProgressView!
     @IBOutlet weak var progressView3: UIProgressView!
@@ -61,6 +62,26 @@ class ViewController: UIViewController {
     @IBOutlet weak var imageViewMenu6Selected: UIImageView!
     @IBOutlet weak var imageViewMenu7Selected: UIImageView!
     
+    @IBOutlet weak var labelCost: UILabel!
+    @IBOutlet weak var labelPerson: UILabel!
+    @IBOutlet weak var labelLike: UILabel!
+    @IBOutlet weak var labelDDuk: UILabel!
+    @IBOutlet weak var labelKimbab: UILabel!
+    @IBOutlet weak var labelSoondae: UILabel!
+    @IBOutlet weak var labelNoodle: UILabel!
+    @IBOutlet weak var labelFry: UILabel!
+    
+    var scoreCost: Int = 0
+    var scorePerson: Int = 0
+    var scoreLike: Int = 0
+    var scoreDDuk: Int = 0
+    var scoreKimbab: Int = 0
+    var scoreSoondae: Int = 0
+    var scoreNoodle: Int = 0
+    var scoreFry: Int = 0
+    
+    
+    
     
     var oneStep: CGFloat = 0.0
     
@@ -77,7 +98,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         
-        
+        playBGM()
         initUI()
         initCustomer()
 
@@ -89,6 +110,10 @@ class ViewController: UIViewController {
     func initUI() {
         //내 캐릭터 한걸음 설정
         oneStep = (viewHall.frame.height/7)-5
+        
+        viewHall.layer.borderWidth = 8
+        viewHall.layer.borderColor = UIColor.yellow.cgColor
+        
         
         //손님 대기시간 타이머(프로그래스) 초기화 설정
         setProgressView(progressView: progressView1)
@@ -127,8 +152,6 @@ class ViewController: UIViewController {
         arrayIVMenuSelected.append(imageViewMenu7Selected)
         
         
-        
-        
     }
     
     func setProgressView(progressView: UIProgressView) {
@@ -147,6 +170,22 @@ class ViewController: UIViewController {
         customerData.append(Customer(tableImageView: table4, exist: false, state: "주문전", menu: "단무지", menuImageView: table4Menu, tableTimer: progressView4, timerStart: true))
         customerData.append(Customer(tableImageView: table5, exist: false, state: "주문전", menu: "단무지", menuImageView: table5Menu, tableTimer: progressView5, timerStart: true))
         customerData.append(Customer(tableImageView: table6, exist: false, state: "주문전", menu: "단무지", menuImageView: table6Menu, tableTimer: progressView6, timerStart: true))
+    }
+    
+    func playBGM() {
+        guard let url = Bundle.main.url(forResource: "mainBGM", withExtension: "mp3") else {
+            print("파일에러")
+            return
+        }
+        
+        do {
+            bgmPlayer = try AVAudioPlayer(contentsOf: url)
+            
+            bgmPlayer.numberOfLoops = -1
+            bgmPlayer.play()
+        } catch {
+            print("파일에러")
+        }
     }
     
     
@@ -168,22 +207,26 @@ class ViewController: UIViewController {
                 }
             //3. UI 변경 후 실행
 //                print("게임시간흐르는중")
-                usleep(100000)
+                usleep(200000)
+                //빠르게
+//                usleep(10000)
             }
         }
-        
+       
         //MARK: 랜덤 테이블에 손님 생성
         DispatchQueue.global().async {
             //전체 타이머의 시간이 되기 전까지 반복문 실행
             while self.hour < 18 {
                 //테이블 위치를 랜덤으로 받음
-//                let indexNum = 2
-                let indexNum = Int.random(in: 0..<customerData.count)
+                let indexNum = 2
+//                let indexNum = Int.random(in: 0..<customerData.count)
                 //여기 담긴 시간만큼 기다렸다가 테이블에 손님생성!
-                usleep(5000000)
+                usleep(3000000)
                 if customerData[indexNum].exist == false {
                     DispatchQueue.main.sync {
                         print("\(indexNum)")
+                        self.scorePersonSum()
+                        self.scoreLikePlus(num: 3)
                         customerData[indexNum].tableImageView.image = UIImage(named: "icon_coming")
                         customerData[indexNum].exist = true
                         customerData[indexNum].tableTimer.isHidden = false
@@ -217,10 +260,14 @@ class ViewController: UIViewController {
                     }
                     tableTime += 0.05
                     usleep(1000000) //1초
+                    //빠르게
+    //                usleep(100000)
+                    
                 } else {
-                    tableTime += 0.125
+//                    print("식사중일때")
+                    tableTime += 0.2
+                    usleep(1000000) //1초
                 }
-        
             }
             //대기시간이 끝났을 때
             customerData[tableIndex].timerStart = true
@@ -235,18 +282,21 @@ class ViewController: UIViewController {
             switch customerData[tableIndex].state {
             case "주문전":
                 print("\(tableIndex) 기분상함")
+                self.scoreLikeMinus(num: 1)
                 self.tableTimer(tableIndex: tableIndex)
                 customerData[tableIndex].tableImageView.image = UIImage(named: "icon_upset")
                 customerData[tableIndex].state = "주문전1"
                 
             case "주문전1":
                 print("\(tableIndex) 매우화남")
+                self.scoreLikeMinus(num: 2)
                 self.tableTimer(tableIndex: tableIndex)
                 customerData[tableIndex].tableImageView.image = UIImage(named: "icon_angry")
                 customerData[tableIndex].state = "주문전2"
 
             case "주문중":
                 print("\(tableIndex) 주문")
+                self.scoreLikePlus(num: 3)
                 self.tableTimer(tableIndex: tableIndex)
                 customerData[tableIndex].tableImageView.image = UIImage(named: "icon_order")
                 customerData[tableIndex].menuImageView.image = UIImage(named: arrayMenuImage[menuIndex])
@@ -255,18 +305,21 @@ class ViewController: UIViewController {
            
             case "주문중1":
                 print("\(tableIndex) 주문중 기분상함")
+                self.scoreLikeMinus(num: 1)
                 self.tableTimer(tableIndex: tableIndex)
                 customerData[tableIndex].tableImageView.image = UIImage(named: "icon_upset")
                 customerData[tableIndex].state = "주문중2"
                 
             case "주문중2":
                 print("\(tableIndex) 주문중 매우화남")
+                self.scoreLikeMinus(num: 2)
                 self.tableTimer(tableIndex: tableIndex)
                 customerData[tableIndex].tableImageView.image = UIImage(named: "icon_angry")
                 customerData[tableIndex].state = "주문중3"
                 
             case "식사중":
                 print("\(tableIndex) 냠냠")
+                self.scoreLikePlus(num: 3)
                 customerData[tableIndex].tableTimer.isHidden = true
                 
                 self.tableTimer(tableIndex: tableIndex)
@@ -280,8 +333,12 @@ class ViewController: UIViewController {
                 customerData[tableIndex].state = "치우기"
 
             case "치우기":
+                print("\(tableIndex)테이블 내메뉴는 \(myMenu)")
+                scoreSum(scoreMenu: myMenu)
+                
                 customerData[tableIndex].tableImageView.image = UIImage(named: "icon_dirty")
                 customerData[tableIndex].menu = "치우기"
+                myMenu = ""
 
                 
             default:
@@ -292,6 +349,7 @@ class ViewController: UIViewController {
                 customerData[tableIndex].menu = "단무지"
                 customerData[tableIndex].menuImageView.image = UIImage()
                 customerData[tableIndex].tableTimer.isHidden = true
+                gameOver()
                 
             }
         }
@@ -301,8 +359,63 @@ class ViewController: UIViewController {
   
     //-------------------------------------------------------------------------------------------------------------------------------------
 
-    func finish() {
-      
+    func scoreSum(scoreMenu: String) {
+        scoreCost += 2000
+        labelCost.text = numberFormatter(number: scoreCost)
+        
+        switch scoreMenu {
+        case "떡볶이":
+            scoreDDuk += 1
+            labelDDuk.text = String(scoreDDuk)
+            
+        case "김밥":
+            scoreDDuk += 1
+            labelDDuk.text = String(scoreDDuk)
+        
+        case "순대":
+            scoreSoondae += 1
+            labelSoondae.text = String(scoreSoondae)
+            
+        case "라면":
+            scoreNoodle += 1
+            labelNoodle.text = String(scoreNoodle)
+            
+        case "튀김":
+            scoreFry += 1
+            labelFry.text = String(scoreFry)
+            
+        default:
+            return
+        }
+    }
+    
+    func scorePersonSum() {
+        scorePerson += 2
+        labelPerson.text = String(scorePerson)
+    }
+    
+    func scoreLikePlus(num: Int) {
+        scoreLike += num
+        labelLike.text = String(scoreLike)
+    }
+    
+    func scoreLikeMinus(num: Int) {
+        scoreLike -= num
+        labelLike.text = String(scoreLike)
+    }
+    
+    func gameOver() {
+        //마감
+        if hour == 18 {
+            var existCheck: [Bool] = []
+            for index in 0..<customerData.count {
+                existCheck.append(customerData[index].exist)
+            }
+            guard existCheck.contains(true) else {
+                print("게임오버~~")
+                return
+            }
+        }
     }
     
     
@@ -337,22 +450,22 @@ class ViewController: UIViewController {
     func tablePosition() {
         let point = CGPoint(x: Int(viewMe.center.x)-10, y: Int(viewMe.center.y+10))
         if table1.frame.contains(point) {
-            print("1번테이블 접근")
+            print("0번테이블 접근")
             menuPick(tableIndex: 0)
         } else if table2.frame.contains(point) {
-            print("2번테이블 접근")
+            print("1번테이블 접근")
             menuPick(tableIndex: 1)
         } else if table3.frame.contains(point) {
-            print("3번테이블 접근")
+            print("2번테이블 접근")
             menuPick(tableIndex: 2)
         } else if table4.frame.contains(point) {
-            print("4번테이블 접근")
+            print("3번테이블 접근")
             menuPick(tableIndex: 3)
         } else if table5.frame.contains(point) {
-            print("5번테이블 접근")
+            print("4번테이블 접근")
             menuPick(tableIndex: 4)
         } else if table6.frame.contains(point) {
-            print("6번테이블 접근")
+            print("5번테이블 접근")
             menuPick(tableIndex: 5)
         }
     }
@@ -370,7 +483,6 @@ class ViewController: UIViewController {
             } else if customerData[tableIndex].menu == myMenu {
                 customerData[tableIndex].timerStart = false
                 customerData[tableIndex].state = "식사중"
-                myMenu = ""
                 imageViewMyMenu.image = UIImage()
                 
             } else if customerData[tableIndex].menu == "치우기" && myMenu == "" {
@@ -378,6 +490,9 @@ class ViewController: UIViewController {
                 customerData[tableIndex].exist = false
                 customerData[tableIndex].state = "주문전"
                 customerData[tableIndex].menu = "단무지"
+                
+                gameOver()
+                
                 
             } else {
                 print("갖고있는 거랑 시킨메뉴랑 다름")
@@ -429,6 +544,15 @@ class ViewController: UIViewController {
                 imageViewMyMenu.image = UIImage()
                 myMenu = ""
             }
+        } else {
+            imageViewMenu1Selected.isHidden = true
+            imageViewMenu2Selected.isHidden = true
+            imageViewMenu3Selected.isHidden = true
+            imageViewMenu4Selected.isHidden = true
+            imageViewMenu5Selected.isHidden = true
+            imageViewMenu6Selected.isHidden = true
+            imageViewMenu7Selected.isHidden = true
+            
         }
     }
     
