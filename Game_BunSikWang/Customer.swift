@@ -12,6 +12,11 @@ import UIKit
 struct Customer {
     var tableImageView: UIImageView
     var exist: Bool
+    var state: String
+    var menu: String
+    var menuImageView: UIImageView
+    let tableTimer: UIProgressView
+    var timerStart: Bool
 }
 
-var customer: [Customer] = []
+var customerData: [Customer] = []
