@@ -25,42 +25,12 @@ class ViewController: UIViewController {
     @IBOutlet weak var btnDown: UIButton!
     @IBOutlet weak var btnSubmit: UIButton!
     
-    @IBOutlet weak var table1: UIImageView!
-    @IBOutlet weak var table2: UIImageView!
-    @IBOutlet weak var table3: UIImageView!
-    @IBOutlet weak var table4: UIImageView!
-    @IBOutlet weak var table5: UIImageView!
-    @IBOutlet weak var table6: UIImageView!
+    @IBOutlet var tableS: [UIImageView]!
+    @IBOutlet var tableMenuS: [UIImageView]!
+    @IBOutlet var progressViewS: [UIProgressView]!
     
-    @IBOutlet weak var table1Menu: UIImageView!
-    @IBOutlet weak var table2Menu: UIImageView!
-    @IBOutlet weak var table3Menu: UIImageView!
-    @IBOutlet weak var table4Menu: UIImageView!
-    @IBOutlet weak var table5Menu: UIImageView!
-    @IBOutlet weak var table6Menu: UIImageView!
-    
-    @IBOutlet weak var progressView1: UIProgressView!
-    @IBOutlet weak var progressView2: UIProgressView!
-    @IBOutlet weak var progressView3: UIProgressView!
-    @IBOutlet weak var progressView4: UIProgressView!
-    @IBOutlet weak var progressView5: UIProgressView!
-    @IBOutlet weak var progressView6: UIProgressView!
-    
-    @IBOutlet weak var viewMenu1dduk: UIView!
-    @IBOutlet weak var viewMenu2kimbab: UIView!
-    @IBOutlet weak var viewMenu3soondae: UIView!
-    @IBOutlet weak var viewMenu4noodle: UIView!
-    @IBOutlet weak var viewMenu5fry: UIView!
-    @IBOutlet weak var viewMenu6dan: UIView!
-    @IBOutlet weak var viewMenu7trash: UIView!
-    
-    @IBOutlet weak var imageViewMenu1Selected: UIImageView!
-    @IBOutlet weak var imageViewMenu2Selected: UIImageView!
-    @IBOutlet weak var imageViewMenu3Selected: UIImageView!
-    @IBOutlet weak var imageViewMenu4Selected: UIImageView!
-    @IBOutlet weak var imageViewMenu5Selected: UIImageView!
-    @IBOutlet weak var imageViewMenu6Selected: UIImageView!
-    @IBOutlet weak var imageViewMenu7Selected: UIImageView!
+    @IBOutlet var viewMenuS: [UIView]!
+    @IBOutlet var imageViewMenuSelectedS: [UIImageView]!
     
     @IBOutlet weak var labelCost: UILabel!
     @IBOutlet weak var labelPerson: UILabel!
@@ -80,96 +50,77 @@ class ViewController: UIViewController {
     var scoreNoodle: Int = 0
     var scoreFry: Int = 0
     
-    
-    
-    
     var oneStep: CGFloat = 0.0
     
     var hour = 09
     var minutes = 00
     
     var myMenu: String = ""
-    let arrayMenuImage = ["menu_dduk", "menu_kimbab", "menu_soondae", "menu_noodle", "menu_fry"]
-    var arrayMenu = ["떡볶이", "김밥", "순대", "라면", "튀김"]
+    let arrayMenuImage = [UIImage(named: "menu_dduk"), UIImage(named: "menu_kimbab"), UIImage(named: "menu_soondae"), UIImage(named: "menu_noodle"), UIImage(named: "menu_fry"), UIImage(named: "menu_danmuji"), UIImage()]
+    var arrayMenu = ["떡볶이", "김밥", "순대", "라면", "튀김", "단무지", ""]
     
-    var arrayIVMenuSelected = [UIImageView]()
         
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        playBGM()
         initUI()
         initCustomer()
 
         mainTimer()
         
-      
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        playBGM()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        bgmPlayer.stop()
     }
     
     func initUI() {
         //내 캐릭터 한걸음 설정
         oneStep = (viewHall.frame.height/7)-5
         
+        //홀 테두리
         viewHall.layer.borderWidth = 8
         viewHall.layer.borderColor = UIColor.yellow.cgColor
         
+        //테이블타이머 초기화
+        progressViewS.forEach {
+            $0.transform = CGAffineTransform(rotationAngle: .pi / 2)
+            $0.layer.borderWidth = 1
+            $0.layer.borderColor = UIColor.white.cgColor
+            $0.isHidden = true
+            $0.progress = 0
+        }
         
-        //손님 대기시간 타이머(프로그래스) 초기화 설정
-        setProgressView(progressView: progressView1)
-        setProgressView(progressView: progressView2)
-        setProgressView(progressView: progressView3)
-        setProgressView(progressView: progressView4)
-        setProgressView(progressView: progressView5)
-        setProgressView(progressView: progressView6)
-        
-        
-        //내가 가지고 있는 메뉴
+        //내가 가지고 있는 메뉴 초기화
         imageViewMyMenu.image = UIImage()
-        //테이블의 메뉴
-        table1Menu.image = UIImage()
-        table2Menu.image = UIImage()
-        table3Menu.image = UIImage()
-        table4Menu.image = UIImage()
-        table5Menu.image = UIImage()
-        table6Menu.image = UIImage()
         
-        //메뉴화살표
-        imageViewMenu1Selected.isHidden = true
-        imageViewMenu2Selected.isHidden = true
-        imageViewMenu3Selected.isHidden = true
-        imageViewMenu4Selected.isHidden = true
-        imageViewMenu5Selected.isHidden = true
-        imageViewMenu6Selected.isHidden = true
-        imageViewMenu7Selected.isHidden = true
+        //테이블의 메뉴 초기화
+        tableMenuS.forEach {
+            $0.image = UIImage()
+        }
         
-        arrayIVMenuSelected.append(imageViewMenu1Selected)
-        arrayIVMenuSelected.append(imageViewMenu2Selected)
-        arrayIVMenuSelected.append(imageViewMenu3Selected)
-        arrayIVMenuSelected.append(imageViewMenu4Selected)
-        arrayIVMenuSelected.append(imageViewMenu5Selected)
-        arrayIVMenuSelected.append(imageViewMenu6Selected)
-        arrayIVMenuSelected.append(imageViewMenu7Selected)
-        
+        menuSelected()
         
     }
     
-    func setProgressView(progressView: UIProgressView) {
-        progressView.transform = CGAffineTransform(rotationAngle: .pi / 2)
-        progressView.layer.borderWidth = 1
-        progressView.layer.borderColor = UIColor.white.cgColor
-        progressView.isHidden = true
-        progressView.progress = 0
+    func menuSelected() {
+        //메뉴화살표 초기화
+        imageViewMenuSelectedS.forEach {
+            $0.isHidden = true
+        }
     }
     
     //MARK: 테이블 데이터 초기화
     func initCustomer() {
-        customerData.append(Customer(tableImageView: table1, exist: false, state: "주문전", menu: "단무지", menuImageView: table1Menu, tableTimer: progressView1, timerStart: true))
-        customerData.append(Customer(tableImageView: table2, exist: false, state: "주문전", menu: "단무지", menuImageView: table2Menu, tableTimer: progressView2, timerStart: true))
-        customerData.append(Customer(tableImageView: table3, exist: false, state: "주문전", menu: "단무지", menuImageView: table3Menu, tableTimer: progressView3, timerStart: true))
-        customerData.append(Customer(tableImageView: table4, exist: false, state: "주문전", menu: "단무지", menuImageView: table4Menu, tableTimer: progressView4, timerStart: true))
-        customerData.append(Customer(tableImageView: table5, exist: false, state: "주문전", menu: "단무지", menuImageView: table5Menu, tableTimer: progressView5, timerStart: true))
-        customerData.append(Customer(tableImageView: table6, exist: false, state: "주문전", menu: "단무지", menuImageView: table6Menu, tableTimer: progressView6, timerStart: true))
+        
+        for num in 0..<6 {
+            customerData.append(Customer(tableImageView: tableS[num], exist: false, state: "주문전", menu: "단무지", menuImageView: tableMenuS[num], tableTimer: progressViewS[num], timerStart: true))
+        }
+      
     }
     
     func playBGM() {
@@ -218,8 +169,8 @@ class ViewController: UIViewController {
             //전체 타이머의 시간이 되기 전까지 반복문 실행
             while self.hour < 18 {
                 //테이블 위치를 랜덤으로 받음
-                let indexNum = 2
-//                let indexNum = Int.random(in: 0..<customerData.count)
+//                let indexNum = 2
+                let indexNum = Int.random(in: 0..<customerData.count)
                 //여기 담긴 시간만큼 기다렸다가 테이블에 손님생성!
                 usleep(3000000)
                 if customerData[indexNum].exist == false {
@@ -253,7 +204,7 @@ class ViewController: UIViewController {
                         if customerData[tableIndex].timerStart == false {
                             tableTime = 1
                         } else {
-                            print("\(tableIndex)테이블 손님타이머시작")
+//                            print("\(tableIndex)테이블 손님타이머시작")
                             customerData[tableIndex].tableTimer.progress = tableTime
                             customerData[tableIndex].tableTimer.setProgress(tableTime, animated: true)
                         }
@@ -261,7 +212,7 @@ class ViewController: UIViewController {
                     tableTime += 0.05
                     usleep(1000000) //1초
                     //빠르게
-    //                usleep(100000)
+//                    usleep(100000)
                     
                 } else {
 //                    print("식사중일때")
@@ -276,7 +227,7 @@ class ViewController: UIViewController {
     }
     
     func orderIng(tableIndex: Int) {
-        let menuIndex = Int.random(in: 0..<self.arrayMenuImage.count)
+        let menuIndex = Int.random(in: 0...4)
         
         DispatchQueue.main.sync {
             switch customerData[tableIndex].state {
@@ -299,7 +250,7 @@ class ViewController: UIViewController {
                 self.scoreLikePlus(num: 3)
                 self.tableTimer(tableIndex: tableIndex)
                 customerData[tableIndex].tableImageView.image = UIImage(named: "icon_order")
-                customerData[tableIndex].menuImageView.image = UIImage(named: arrayMenuImage[menuIndex])
+                customerData[tableIndex].menuImageView.image = arrayMenuImage[menuIndex]
                 customerData[tableIndex].menu = arrayMenu[menuIndex]
                 customerData[tableIndex].state = "주문중1"
            
@@ -413,6 +364,13 @@ class ViewController: UIViewController {
             }
             guard existCheck.contains(true) else {
                 print("게임오버~~")
+                
+                let resultViewController = self.storyboard?.instantiateViewController(withIdentifier: "ViewControllerReult") as! ViewControllerReult
+                
+                resultViewController.modalPresentationStyle = .fullScreen
+                self.present(resultViewController, animated: true)
+                
+
                 return
             }
         }
@@ -449,24 +407,11 @@ class ViewController: UIViewController {
     
     func tablePosition() {
         let point = CGPoint(x: Int(viewMe.center.x)-10, y: Int(viewMe.center.y+10))
-        if table1.frame.contains(point) {
-            print("0번테이블 접근")
-            menuPick(tableIndex: 0)
-        } else if table2.frame.contains(point) {
-            print("1번테이블 접근")
-            menuPick(tableIndex: 1)
-        } else if table3.frame.contains(point) {
-            print("2번테이블 접근")
-            menuPick(tableIndex: 2)
-        } else if table4.frame.contains(point) {
-            print("3번테이블 접근")
-            menuPick(tableIndex: 3)
-        } else if table5.frame.contains(point) {
-            print("4번테이블 접근")
-            menuPick(tableIndex: 4)
-        } else if table6.frame.contains(point) {
-            print("5번테이블 접근")
-            menuPick(tableIndex: 5)
+        for num in 0..<tableS.count {
+            if tableS[num].frame.contains(point) {
+                print("\(num)번 테이블 접근")
+                menuPick(tableIndex: num)
+            }
         }
     }
     
@@ -502,79 +447,44 @@ class ViewController: UIViewController {
     
 
     func menuPosition() {
-        let point = CGPoint(x: Int(viewMe.center.x-561), y: Int(viewMe.center.y+2))
-        if viewMenu1dduk.frame.contains(point) {
-            print("1 떡볶이 접근")
-            setImageViewMenuSelected(imageViewMenuSelected: imageViewMenu1Selected)
-            setImageMyMenu(menuImage: UIImage(named: "menu_dduk")!, myMenuName: "떡볶이")
-            
-        } else if viewMenu2kimbab.frame.contains(point) {
-            print("2 김밥 접근")
-            imageViewMenu2Selected.isHidden = false
-            setImageViewMenuSelected(imageViewMenuSelected: imageViewMenu2Selected)
-            setImageMyMenu(menuImage: UIImage(named: "menu_kimbab")!, myMenuName: "김밥")
+        menuSelected()
 
-            
-        } else if viewMenu3soondae.frame.contains(point) {
-            print("3 순대 접근")
-            setImageViewMenuSelected(imageViewMenuSelected: imageViewMenu3Selected)
-            setImageMyMenu(menuImage: UIImage(named: "menu_soondae")!, myMenuName: "순대")
-
-            
-        } else if viewMenu4noodle.frame.contains(point) {
-            print("4 라면 접근")
-            setImageViewMenuSelected(imageViewMenuSelected: imageViewMenu4Selected)
-            setImageMyMenu(menuImage: UIImage(named: "menu_noodle")!, myMenuName: "라면")
-
-            
-        } else if viewMenu5fry.frame.contains(point) {
-            print("5 튀김 접근")
-            setImageViewMenuSelected(imageViewMenuSelected: imageViewMenu5Selected)
-            setImageMyMenu(menuImage: UIImage(named: "menu_fry")!, myMenuName: "튀김")
-            
-        } else if viewMenu6dan.frame.contains(point) {
-            print("6 단무지 접근")
-            setImageViewMenuSelected(imageViewMenuSelected: imageViewMenu6Selected)
-            setImageMyMenu(menuImage: UIImage(named: "menu_danmuji")!, myMenuName: "단무지")
-            
-        } else if viewMenu7trash.frame.contains(point) {
-            print("쓰레기통 접근")
-            setImageViewMenuSelected(imageViewMenuSelected: imageViewMenu7Selected)
-            if btnSubmit.isTouchInside {
-                imageViewMyMenu.image = UIImage()
-                myMenu = ""
+        let point = CGPoint(x: Int(viewMe.center.x-25), y: Int(viewMe.center.y))
+        for num in 0..<viewMenuS.count {
+            if viewMenuS[num].frame.contains(point) {
+                print("\(num)번 \(arrayMenu[num]) 접근")
+                setImageViewMenuSelected(imageViewMenuSelected: imageViewMenuSelectedS[num])
+                setImageMyMenu(num: num)
             }
-        } else {
-            imageViewMenu1Selected.isHidden = true
-            imageViewMenu2Selected.isHidden = true
-            imageViewMenu3Selected.isHidden = true
-            imageViewMenu4Selected.isHidden = true
-            imageViewMenu5Selected.isHidden = true
-            imageViewMenu6Selected.isHidden = true
-            imageViewMenu7Selected.isHidden = true
-            
         }
     }
     
     //제출하기 눌렀을 때 가지고 있는 메뉴 변경
-    func setImageMyMenu(menuImage: UIImage, myMenuName: String) {
-        if btnSubmit.isTouchInside && imageViewMyMenu.image == UIImage() {
-            imageViewMyMenu.image = menuImage
-            myMenu = myMenuName
+    func setImageMyMenu(num: Int) {
+        if num < 6 {
+            if btnSubmit.isTouchInside && imageViewMyMenu.image == UIImage() {
+                imageViewMyMenu.image = arrayMenuImage[num]
+                myMenu = arrayMenu[num]
+            }
+            
+        } else {
+            if btnSubmit.isTouchInside {
+                imageViewMyMenu.image = UIImage()
+                myMenu = arrayMenu[num]
+            }
         }
+        
     }
     
+    //메뉴 화살표 표시
     func setImageViewMenuSelected(imageViewMenuSelected: UIImageView) {
-        for select in arrayIVMenuSelected {
-            if imageViewMenuSelected != select {
-                select.isHidden = true
+        for num in 0..<imageViewMenuSelectedS.count {
+            if imageViewMenuSelected == imageViewMenuSelectedS[num] {
+                imageViewMenuSelectedS[num].isHidden = false
             } else {
-                select.isHidden = false
+                imageViewMenuSelectedS[num].isHidden = true
             }
         }
     }
-    
-    
-    
 }
 
