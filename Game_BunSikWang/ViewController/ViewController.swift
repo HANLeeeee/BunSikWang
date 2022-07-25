@@ -481,7 +481,6 @@ class ViewController: UIViewController {
                 myMenu = ""
                 imageViewMyMenu.image = UIImage()
                 
-                
             } else if customerData[tableIndex].menu == myMenu {
                 customerData[tableIndex].timerStart = false
                 customerData[tableIndex].state = "식사중"
@@ -494,7 +493,6 @@ class ViewController: UIViewController {
                 customerData[tableIndex].menu = "단무지"
                 
                 gameOver()
-                
                 
             } else {
                 print("갖고있는 거랑 시킨메뉴랑 다름")
@@ -518,21 +516,29 @@ class ViewController: UIViewController {
     
     //제출하기 눌렀을 때 가지고 있는 메뉴 변경
     func setImageMyMenu(num: Int) {
-        if num < 6 {
-            if btnSubmit.isTouchInside && imageViewMyMenu.image == UIImage() {
-                imageViewMyMenu.image = arrayMenuImage[num]
-                myMenu = arrayMenu[num]
-            }
-            
-        } else {
-            //쓰레기통에서 클릭했을 때
-            if btnSubmit.isTouchInside && imageViewMyMenu.image != UIImage(){
-                imageViewMyMenu.image = UIImage()
-                myMenu = arrayMenu[num]
-                scoreTrash += 1
+        if btnSubmit.isTouchInside {
+            switch num {
+            case 0, 1, 2, 3, 4, 5:
+                if imageViewMyMenu.image == UIImage() {
+                    imageViewMyMenu.image = arrayMenuImage[num]
+                    myMenu = arrayMenu[num]
+                } else {
+                    print("쓰레기통으로 가야함")
+                }
+                
+            case 6:
+                if imageViewMyMenu.image != UIImage() {
+                    imageViewMyMenu.image = UIImage()
+                    myMenu = arrayMenu[num]
+                    scoreTrash += 1
+                } else {
+                    print("아무것도 없음")
+                }
+                
+            default:
+                return
             }
         }
-        
     }
     
     //메뉴 화살표 표시
