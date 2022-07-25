@@ -9,9 +9,10 @@
 /* Begin PBXBuildFile section */
 		F65F7176288D6A7300933E2A /* RankingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65F7174288D6A7300933E2A /* RankingTableViewCell.swift */; };
 		F65F7177288D6A7300933E2A /* RankingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F65F7175288D6A7300933E2A /* RankingTableViewCell.xib */; };
+		F65F717A288DA19900933E2A /* mainBGM.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F65F7179288DA19900933E2A /* mainBGM.mp3 */; };
+		F65F717C288DBBD200933E2A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65F717B288DBBD200933E2A /* User.swift */; };
 		F665F4F7288809620058BFDD /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F665F4F6288809620058BFDD /* Customer.swift */; };
 		F686561A288C2C780026E80E /* NumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6865619288C2C780026E80E /* NumberFormatter.swift */; };
-		F686561E288C4A150026E80E /* mainBGM.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F686561D288C4A150026E80E /* mainBGM.mp3 */; };
 		F6865622288C562C0026E80E /* ReultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6865621288C562C0026E80E /* ReultViewController.swift */; };
 		F6865624288C57F30026E80E /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6865623288C57F30026E80E /* StartViewController.swift */; };
 		F68E51A928870E3C00F84F11 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F68E51A828870E3C00F84F11 /* AppDelegate.swift */; };
@@ -25,9 +26,10 @@
 /* Begin PBXFileReference section */
 		F65F7174288D6A7300933E2A /* RankingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingTableViewCell.swift; sourceTree = "<group>"; };
 		F65F7175288D6A7300933E2A /* RankingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RankingTableViewCell.xib; sourceTree = "<group>"; };
+		F65F7179288DA19900933E2A /* mainBGM.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = mainBGM.mp3; sourceTree = "<group>"; };
+		F65F717B288DBBD200933E2A /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		F665F4F6288809620058BFDD /* Customer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
 		F6865619288C2C780026E80E /* NumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatter.swift; sourceTree = "<group>"; };
-		F686561D288C4A150026E80E /* mainBGM.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = mainBGM.mp3; sourceTree = "<group>"; };
 		F6865621288C562C0026E80E /* ReultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReultViewController.swift; sourceTree = "<group>"; };
 		F6865623288C57F30026E80E /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 		F68E51A528870E3C00F84F11 /* Game_BunSikWang.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Game_BunSikWang.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -94,9 +96,10 @@
 				F68E51AA28870E3C00F84F11 /* SceneDelegate.swift */,
 				F68E51B628870E3F00F84F11 /* Info.plist */,
 				F68E51B128870E3F00F84F11 /* Assets.xcassets */,
-				F686561D288C4A150026E80E /* mainBGM.mp3 */,
+				F65F7179288DA19900933E2A /* mainBGM.mp3 */,
 				F6865619288C2C780026E80E /* NumberFormatter.swift */,
 				F665F4F6288809620058BFDD /* Customer.swift */,
+				F65F717B288DBBD200933E2A /* User.swift */,
 				F68E51AE28870E3C00F84F11 /* Main.storyboard */,
 				F65F7173288D6A5300933E2A /* ViewController */,
 				F65F7178288D6A8B00933E2A /* TableViewCell */,
@@ -163,8 +166,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F68E51B528870E3F00F84F11 /* LaunchScreen.storyboard in Resources */,
+				F65F717A288DA19900933E2A /* mainBGM.mp3 in Resources */,
 				F65F7177288D6A7300933E2A /* RankingTableViewCell.xib in Resources */,
-				F686561E288C4A150026E80E /* mainBGM.mp3 in Resources */,
 				F68E51B228870E3F00F84F11 /* Assets.xcassets in Resources */,
 				F68E51B028870E3C00F84F11 /* Main.storyboard in Resources */,
 			);
@@ -182,6 +185,7 @@
 				F6865624288C57F30026E80E /* StartViewController.swift in Sources */,
 				F686561A288C2C780026E80E /* NumberFormatter.swift in Sources */,
 				F68E51A928870E3C00F84F11 /* AppDelegate.swift in Sources */,
+				F65F717C288DBBD200933E2A /* User.swift in Sources */,
 				F68E51AB28870E3C00F84F11 /* SceneDelegate.swift in Sources */,
 				F665F4F7288809620058BFDD /* Customer.swift in Sources */,
 				F6865622288C562C0026E80E /* ReultViewController.swift in Sources */,

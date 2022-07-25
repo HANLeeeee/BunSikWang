@@ -57,6 +57,11 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="labelRank" destination="SD2-1Z-CnS" id="jFG-BD-M56"/>
+                <outlet property="labelRankCost" destination="8VE-uA-QDb" id="y05-qK-L0T"/>
+                <outlet property="labelRankUserID" destination="DIy-3x-hQd" id="Lun-76-ZCL"/>
+            </connections>
             <point key="canvasLocation" x="150.72463768115944" y="95.424107142857139"/>
         </tableViewCell>
     </objects>
