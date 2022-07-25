@@ -18,6 +18,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var imageViewMyMenu: UIImageView!
     
     @IBOutlet weak var viewHall: UIView!
+    @IBOutlet weak var imageViewMenuBar: UIImageView!
     
     @IBOutlet weak var btnUp: UIButton!
     @IBOutlet weak var btnLeft: UIButton!
@@ -52,8 +53,9 @@ class ViewController: UIViewController {
     var scoreFry: Int = 0
     var scoreTrash: Int = 0
     
-    var oneStep: CGFloat = 0.0
-    
+    var oneHeightStep: CGFloat = 0.0
+    var oneWidthStep: CGFloat = 0.0
+
     var hour = 0
     var minutes = 0
     
@@ -97,7 +99,8 @@ class ViewController: UIViewController {
         
         viewMe.layer.position = CGPoint(x: viewHall.center.x, y: viewHall.center.y)
         //내 캐릭터 한걸음 설정
-        oneStep = (viewHall.frame.height/7)-5
+        oneHeightStep = (viewHall.frame.height/7)-5
+        oneWidthStep = (viewHall.frame.width/8)/3
     }
     
     func initUI() {
@@ -308,11 +311,8 @@ class ViewController: UIViewController {
             case "치우기":
                 print("\(tableIndex)테이블 내메뉴는 \(customerData[tableIndex].menu)")
                 scoreSum(scoreMenu: customerData[tableIndex].menu)
-                
                 customerData[tableIndex].tableImageView.image = UIImage(named: "icon_dirty")
                 customerData[tableIndex].menu = "치우기"
-                myMenu = ""
-
                 
             default:
                 //나갔을 때 & state="주문전2"일때 & state="주문중3"일때
@@ -442,99 +442,111 @@ class ViewController: UIViewController {
     }
 
     @IBAction func btnUpAction(_ sender: Any) {
-        viewMe.layer.position = CGPoint(x: viewMe.center.x, y: viewMe.center.y-oneStep)
+        viewMe.layer.position = CGPoint(x: viewMe.center.x, y: viewMe.center.y-oneHeightStep)
         tablePosition()
         menuPosition()
+        tablePositionBlock(btn: btnUp)
     }
     @IBAction func btnRightAction(_ sender: Any) {
-        viewMe.layer.position = CGPoint(x: viewMe.center.x+oneStep, y: viewMe.center.y)
+        viewMe.layer.position = CGPoint(x: viewMe.center.x+oneWidthStep, y: viewMe.center.y)
         tablePosition()
         menuPosition()
+        tablePositionBlock(btn: btnRight)
     }
     @IBAction func btnLeftAction(_ sender: Any) {
-        viewMe.layer.position = CGPoint(x: viewMe.center.x-oneStep, y: viewMe.center.y)
+        viewMe.layer.position = CGPoint(x: viewMe.center.x-oneWidthStep, y: viewMe.center.y)
         tablePosition()
         menuPosition()
+        tablePositionBlock(btn: btnLeft)
     }
     @IBAction func btnDownAction(_ sender: Any) {
-        viewMe.layer.position = CGPoint(x: viewMe.center.x, y: viewMe.center.y+oneStep)
+        viewMe.layer.position = CGPoint(x: viewMe.center.x, y: viewMe.center.y+oneHeightStep)
         tablePosition()
         menuPosition()
+        tablePositionBlock(btn: btnDown)
     }
     
     func tablePosition() {
-        let point = CGPoint(x: Int(viewMe.center.x)-10, y: Int(viewMe.center.y+10))
+        let point = CGPoint(x: viewMe.center.x-oneWidthStep, y: viewMe.center.y)
         for num in 0..<tableS.count {
             if tableS[num].frame.contains(point) {
                 print("\(num)번 테이블 접근")
                 menuPick(tableIndex: num)
+                break
             }
         }
     }
     
     func menuPick(tableIndex: Int) {
+        print("이게 나의 메뉴 \(myMenu)")
         if btnSubmit.isTouchInside {
             print("제출버튼클릭")
-            if customerData[tableIndex].menu == "단무지" && myMenu == "단무지" {
-                customerData[tableIndex].timerStart = false
-                customerData[tableIndex].state = "주문중"
-                myMenu = ""
-                imageViewMyMenu.image = UIImage()
-                
-            } else if customerData[tableIndex].menu == myMenu {
-                customerData[tableIndex].timerStart = false
-                customerData[tableIndex].state = "식사중"
-                imageViewMyMenu.image = UIImage()
-                
-            } else if customerData[tableIndex].menu == "치우기" && myMenu == "" {
-                customerData[tableIndex].tableImageView.image = UIImage(named: "icon_empty")
-                customerData[tableIndex].exist = false
-                customerData[tableIndex].state = "주문전"
-                customerData[tableIndex].menu = "단무지"
-                
-                gameOver()
-                
-            } else {
-                print("갖고있는 거랑 시킨메뉴랑 다름")
+            if customerData[tableIndex].exist == true {
+                if customerData[tableIndex].menu == "단무지" && myMenu == "단무지" {
+                    customerData[tableIndex].timerStart = false
+                    customerData[tableIndex].state = "주문중"
+                    imageViewMyMenu.image = UIImage()
+                    myMenu = ""
+                    
+                    
+                } else if customerData[tableIndex].menu == myMenu {
+                    customerData[tableIndex].timerStart = false
+                    customerData[tableIndex].state = "식사중"
+                    imageViewMyMenu.image = UIImage()
+                    myMenu = ""
+                    
+                } else if customerData[tableIndex].menu == "치우기" && myMenu == "" {
+                    customerData[tableIndex].tableImageView.image = UIImage(named: "icon_empty")
+                    customerData[tableIndex].exist = false
+                    customerData[tableIndex].state = "주문전"
+                    customerData[tableIndex].menu = "단무지"
+                    myMenu = ""
+                    
+                    gameOver()
+                    
+                    
+                } else {
+                    print("갖고있는 거랑 시킨메뉴랑 다름")
+                }
             }
         }
     }
     
 
     func menuPosition() {
-        menuSelected()
-
-        let point = CGPoint(x: Int(viewMe.center.x-25), y: Int(viewMe.center.y))
+        let point = CGPoint(x: Int(viewMe.center.x+oneWidthStep), y: Int(viewMe.center.y))
         for num in 0..<viewMenuS.count {
             if viewMenuS[num].frame.contains(point) {
                 print("\(num)번 \(arrayMenu[num]) 접근")
-                setImageViewMenuSelected(imageViewMenuSelected: imageViewMenuSelectedS[num])
                 setImageMyMenu(num: num)
+                setImageViewMenuSelected(imageViewMenuSelected: imageViewMenuSelectedS[num])
+
+                break
+            } else {
+                menuSelected()
             }
         }
     }
     
     //제출하기 눌렀을 때 가지고 있는 메뉴 변경
     func setImageMyMenu(num: Int) {
+        print("메뉴클릭해서 내가 들었어!")
         if btnSubmit.isTouchInside {
             switch num {
-            case 0, 1, 2, 3, 4, 5:
+            case 0,1,2,3,4,5:
                 if imageViewMyMenu.image == UIImage() {
-                    imageViewMyMenu.image = arrayMenuImage[num]
                     myMenu = arrayMenu[num]
-                } else {
-                    print("쓰레기통으로 가야함")
+                    imageViewMyMenu.image = arrayMenuImage[num]
+                    print("이게 찐으로 안되면 이상한거 \(myMenu)")
                 }
                 
             case 6:
                 if imageViewMyMenu.image != UIImage() {
-                    imageViewMyMenu.image = UIImage()
-                    myMenu = arrayMenu[num]
                     scoreTrash += 1
-                } else {
-                    print("아무것도 없음")
+                    myMenu = arrayMenu[num]
+                    imageViewMyMenu.image = UIImage()
+                    print("이게 찐으로 안되면 이상한거 \(myMenu)")
                 }
-                
             default:
                 return
             }
@@ -551,5 +563,33 @@ class ViewController: UIViewController {
             }
         }
     }
-}
+    
+    func tablePositionBlock(btn: UIButton) {
+        print("벽에 닿았을 때 \(myMenu)")
+        let point = CGPoint(x: Int(viewMe.center.x+5), y: Int(viewMe.center.y))
+        let hallpoint = CGPoint(x: Int(viewMe.center.x), y: Int(viewMe.center.y+80))
+        for num in 0..<tableS.count {
+            if tableS[num].frame.contains(point) || !viewHall.frame.contains(hallpoint) || viewMenuS[num].frame.contains(viewMe.center) {
+                print(num)
+                switch btn {
+                case btnUp:
+                    viewMe.layer.position = CGPoint(x: viewMe.center.x, y: viewMe.center.y+oneHeightStep)
+                    
+                case btnLeft:
+                    viewMe.layer.position = CGPoint(x: viewMe.center.x+oneWidthStep, y: viewMe.center.y)
 
+                case btnRight:
+                    viewMe.layer.position = CGPoint(x: viewMe.center.x-oneWidthStep, y: viewMe.center.y)
+
+                case btnDown:
+                    viewMe.layer.position = CGPoint(x: viewMe.center.x, y: viewMe.center.y-oneHeightStep)
+                    
+                default:
+                    return
+                                    
+                }
+                break
+            }
+        }
+    }
+}
