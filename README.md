@@ -36,14 +36,35 @@
 
 <br/><br/>
 ## 📌 알게된 점
-- DispatchQueue.global().async 사용 
-DispatchQueue.main.sync
+- Thread구현 
+  → DispatchQueue.global().async, DispatchQueue.main.sync 사용 <br/>
+- 캐릭터 이동하는 위치가 어디있는 지 
+  → view.frame.contains 로 해당 뷰에 포함되어 있을 때를 이용 → 해당 뷰가 슈퍼뷰로 해야 좌표 비교가능 <br/>
+- 장애물을 만나면 위치에서 움직이지 않게
+  → 포함되어지면 안되는 구간을 설정, 그 구간에서 움직이는 것이 안되게 설정! <br/>
+- AVAudioPlayer() 를 이용한 배경음악
+  → numberOfLoops = -1 을 이용하여 반복재생 <br/>
+
 
 
 <br/><br/>
 ## 📌 아쉬운 점
-- 상단탭바 구현<br/>
-- 장바구니로 바로 가기
+- 주문을 받을 때와 메뉴를 갔다 줬을 때 즉각적인 반응이 아니라서 아쉬웠다
+- Global Queue에 다양항 qos를 활용해보지 못했다
+
+
+
+<br/><br/>
+## 📌 미리보기
+
+
+
+
+https://user-images.githubusercontent.com/74815957/184090824-b49fb1b3-48e2-4708-b6dc-cd67e0f75b3e.mp4
+
+
+https://user-images.githubusercontent.com/74815957/184090837-7f8ac02f-4426-43ad-bdb8-be467872bf44.mp4
+
 
 
 <br/><br/>
