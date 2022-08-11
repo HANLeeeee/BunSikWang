@@ -1,6 +1,6 @@
 //
 //  StartViewController.swift
-//  Game_BunSikWang
+//  BunSikWang
 //
 //  Created by 하늘이 on 2022/07/24.
 //
@@ -14,7 +14,6 @@ class ViewControllerStart: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        UserDefaults.standard.setValue(textFieldID.text, forKey: "userId")
     }
     
     @IBAction func btnStartAction(_ sender: Any) {
@@ -35,15 +34,4 @@ class ViewControllerStart: UIViewController {
             self.present(viewController, animated: true)
         }
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

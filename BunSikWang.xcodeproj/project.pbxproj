@@ -32,7 +32,7 @@
 		F6865619288C2C780026E80E /* NumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatter.swift; sourceTree = "<group>"; };
 		F6865621288C562C0026E80E /* ReultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReultViewController.swift; sourceTree = "<group>"; };
 		F6865623288C57F30026E80E /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
-		F68E51A528870E3C00F84F11 /* Game_BunSikWang.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Game_BunSikWang.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F68E51A528870E3C00F84F11 /* BunSikWang.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BunSikWang.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F68E51A828870E3C00F84F11 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F68E51AA28870E3C00F84F11 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		F68E51AC28870E3C00F84F11 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -75,7 +75,7 @@
 		F68E519C28870E3B00F84F11 = {
 			isa = PBXGroup;
 			children = (
-				F68E51A728870E3C00F84F11 /* Game_BunSikWang */,
+				F68E51A728870E3C00F84F11 /* BunSikWang */,
 				F68E51A628870E3C00F84F11 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -83,12 +83,12 @@
 		F68E51A628870E3C00F84F11 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F68E51A528870E3C00F84F11 /* Game_BunSikWang.app */,
+				F68E51A528870E3C00F84F11 /* BunSikWang.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		F68E51A728870E3C00F84F11 /* Game_BunSikWang */ = {
+		F68E51A728870E3C00F84F11 /* BunSikWang */ = {
 			isa = PBXGroup;
 			children = (
 				F68E51B328870E3F00F84F11 /* LaunchScreen.storyboard */,
@@ -104,15 +104,15 @@
 				F65F7173288D6A5300933E2A /* ViewController */,
 				F65F7178288D6A8B00933E2A /* TableViewCell */,
 			);
-			path = Game_BunSikWang;
+			path = BunSikWang;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		F68E51A428870E3C00F84F11 /* Game_BunSikWang */ = {
+		F68E51A428870E3C00F84F11 /* BunSikWang */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F68E51B928870E3F00F84F11 /* Build configuration list for PBXNativeTarget "Game_BunSikWang" */;
+			buildConfigurationList = F68E51B928870E3F00F84F11 /* Build configuration list for PBXNativeTarget "BunSikWang" */;
 			buildPhases = (
 				F68E51A128870E3C00F84F11 /* Sources */,
 				F68E51A228870E3C00F84F11 /* Frameworks */,
@@ -122,9 +122,9 @@
 			);
 			dependencies = (
 			);
-			name = Game_BunSikWang;
+			name = BunSikWang;
 			productName = Game_BunSikWang;
-			productReference = F68E51A528870E3C00F84F11 /* Game_BunSikWang.app */;
+			productReference = F68E51A528870E3C00F84F11 /* BunSikWang.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -142,7 +142,7 @@
 					};
 				};
 			};
-			buildConfigurationList = F68E51A028870E3B00F84F11 /* Build configuration list for PBXProject "Game_BunSikWang" */;
+			buildConfigurationList = F68E51A028870E3B00F84F11 /* Build configuration list for PBXProject "BunSikWang" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -155,7 +155,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F68E51A428870E3C00F84F11 /* Game_BunSikWang */,
+				F68E51A428870E3C00F84F11 /* BunSikWang */,
 			);
 		};
 /* End PBXProject section */
@@ -337,7 +337,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = C39BYRTABZ;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Game_BunSikWang/Info.plist;
+				INFOPLIST_FILE = BunSikWang/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = BunSikWang;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -349,7 +350,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.hanle.Game-BunSikWang";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hanle.BunSikWang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -366,7 +367,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = C39BYRTABZ;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Game_BunSikWang/Info.plist;
+				INFOPLIST_FILE = BunSikWang/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = BunSikWang;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -378,7 +380,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.hanle.Game-BunSikWang";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hanle.BunSikWang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -389,7 +391,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		F68E51A028870E3B00F84F11 /* Build configuration list for PBXProject "Game_BunSikWang" */ = {
+		F68E51A028870E3B00F84F11 /* Build configuration list for PBXProject "BunSikWang" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F68E51B728870E3F00F84F11 /* Debug */,
@@ -398,7 +400,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F68E51B928870E3F00F84F11 /* Build configuration list for PBXNativeTarget "Game_BunSikWang" */ = {
+		F68E51B928870E3F00F84F11 /* Build configuration list for PBXNativeTarget "BunSikWang" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F68E51BA28870E3F00F84F11 /* Debug */,

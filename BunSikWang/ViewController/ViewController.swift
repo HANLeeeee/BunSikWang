@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  Game_BunSikWang
+//  BunSikWang
 //
 //  Created by 하늘이 on 2022/07/20.
 //
@@ -182,10 +182,7 @@ class ViewController: UIViewController {
                     self.labelMainTimer.text = "\(String(format: "%02d", self.hour)) : \(String(format: "%02d", self.minutes))"
                 }
             //3. UI 변경 후 실행
-//                print("게임시간흐르는중")
                 usleep(150000)
-                //빠르게
-//                usleep(10000)
             }
         }
        
@@ -194,7 +191,6 @@ class ViewController: UIViewController {
             //전체 타이머의 시간이 되기 전까지 반복문 실행
             while self.hour < 18 {
                 //테이블 위치를 랜덤으로 받음
-//                let indexNum = 2
                 let indexNum = Int.random(in: 0..<customerData.count)
                 //여기 담긴 시간만큼 기다렸다가 테이블에 손님생성!
                 usleep(3000000)
@@ -236,9 +232,6 @@ class ViewController: UIViewController {
                     }
                     tableTime += 0.05
                     usleep(1000000) //1초
-                    //빠르게
-//                    usleep(100000)
-                    
                 } else {
 //                    print("식사중일때")
                     tableTime += 0.2

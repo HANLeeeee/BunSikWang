@@ -1,6 +1,6 @@
 //
 //  RankingTableViewCell.swift
-//  Game_BunSikWang
+//  BunSikWang
 //
 //  Created by 하늘이 on 2022/07/24.
 //
